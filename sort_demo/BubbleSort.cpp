@@ -1,5 +1,6 @@
 #include<iostream>
 #include<cmath>
+#include<malloc.h>
 
 using namespace std;
 // 普通冒泡排序
@@ -200,7 +201,11 @@ void HeapSort(int *arr, int len) {
 	}
 }
 
-int* arr1;
+int *arr1 = (int*)malloc(13 * sizeof(int*));
+void Merge(int* arr, int low, int mid, int high) {
+	// 表arr的两段[]
+}
+
 
 int main() {
 	int buf[12] = {10,5,3,3,9,20,8,5,7,9,5,12};
