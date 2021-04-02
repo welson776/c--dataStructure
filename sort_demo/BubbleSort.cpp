@@ -200,6 +200,8 @@ void HeapSort(int *arr, int len) {
 	}
 }
 
+int *arr1;
+
 int main() {
 	int buf[12] = {10,5,3,3,9,20,8,5,7,9,5,12};
 	int len = sizeof(buf) / sizeof(buf[0]);
