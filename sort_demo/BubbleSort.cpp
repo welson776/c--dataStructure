@@ -202,8 +202,43 @@ void HeapSort(int *arr, int len) {
 }
 
 int *arr1 = (int*)malloc(13 * sizeof(int*));
+//归并逻辑
 void Merge(int* arr, int low, int mid, int high) {
-	// 表arr的两段[]
+	// 表arr的两段[low, mid] 和 [mid+1,high]各自有序,将它们合并为一个有序表
+	int i, j, k;
+	for ( k = low; k <= high; k++)
+	{
+		arr1[k] = arr[k]; // 将arr中的所有元素复制到arr1
+	}
+	for ( i = low,j=mid+1,k=i; i <=mid && j<=high; k++)
+	{
+		if (arr1[i] <= arr1[j]) { //比较arr1左右两段中的元素
+			arr[k] = arr1[i++];
+		}
+		else
+		{
+			arr[k] = arr1[j++];
+		}
+	}
+	while (i<=mid)
+	{
+		arr[k++] = arr1[i++]; // 若第一个表未检测完复制
+	}
+	while (j <= high)
+	{
+		arr[k++] = arr1[j++];
+	}
+}
+
+// 2路归并排序
+void MergeSort(int *arr, int low, int high) {
+	if (low < high)
+	{
+		int mid = (low + high) / 2;
+		MergeSort(arr, low, mid);
+		MergeSort(arr, mid + 1, high);
+		Merge(arr, low, mid, high);
+	}
 }
 
 
@@ -218,8 +253,9 @@ int main() {
 	//InsertSort(buf, len);
 	//halfDirInsertSort(buf, len);
 	//ShellSort(buf, len);
-	SelectSort(buf, len);
+	//SelectSort(buf, len);
 	HeapSort(buf1, len1);
+	MergeSort(buf, 0, len - 1);
 	for (int i = 0; i < sizeof(buf)/sizeof(buf[0]); i++)
 	{
 		cout << buf[i] << " ";
