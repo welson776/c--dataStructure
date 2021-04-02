@@ -241,6 +241,24 @@ void MergeSort(int *arr, int low, int high) {
 	}
 }
 
+/*********************************************************
+Function:rxsort  csdn转载
+Description:基数排序
+Input:
+	数组A[low,high]；
+	数组中最大元素的位数d，例如最大数为999，则d为3；
+	进制数k，如果是10进制数，k为10；
+Output:排序好的数组；
+Others：对数字1234来说，预定第0位为4，第1位为3，依次类推；
+*********************************************************/
+void rxsort(int *arr, int low, int high, int d, int k) {
+	if (arr == nullptr || low > high) // 
+	{
+		return;
+	}
+
+	int size = high - low + 1;
+}
 
 int main() {
 	int buf[12] = {10,5,3,3,9,20,8,5,7,9,5,12};
