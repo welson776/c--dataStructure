@@ -252,7 +252,7 @@ Output:排序好的数组；
 Others：对数字1234来说，预定第0位为4，第1位为3，依次类推；
 *********************************************************/
 void rxsort(int *arr, int low, int high, int d, int k) {
-	if (arr == nullptr || low > high) // 
+	if (NULL==arr || low > high) // 
 	{
 		return;
 	}
@@ -281,15 +281,43 @@ void rxsort(int *arr, int low, int high, int d, int k) {
 			/*
 			统计数组A中每个数字的第i位数中各个数字的频数,用于计数排序；
 			*/
+			counts[index]++;
 		}
+
+		//计算累加频数，用户计数排序
+		for (int j = 1; j < k; j++)
+		{
+			counts[j] = counts[j] + counts[j - 1];
+		}
+
+
+		//使用倒数第i+1位数对arr进行排序
+		for (int j = high; j >= low; j--)
+		{
+			index = (int)(arr[j] / pval) % k;
+			temp[counts[index] - 1] = arr[j];
+			counts[index]--;
+		}
+		//将按第i为数排序后的结果保存回数组arr中
+		for (int j = 0; j < size; j++)
+		{
+			arr[j + low] = temp[j];
+		}
+		//更新pval
+		pval *= k;
 	}
+	delete[] counts;
+	delete[] temp;
 }
+
 
 int main() {
 	int buf[12] = {10,5,3,3,9,20,8,5,7,9,5,12};
 	int len = sizeof(buf) / sizeof(buf[0]);
 	int buf1[8] = { 53,17,78,9,45,65,87,32 };
 	int len1 = sizeof(buf1) / sizeof(buf1[0]);
+	int arr2[] = { 712,303,4,18,89,999,70,26 };
+	int len2 = sizeof(arr2) / sizeof(arr2[0]);
 	//buddleSort(buf, len);
 	//BidBuddleSort(buf, len);
 	//quickSort(buf, 0, len - 1);
@@ -299,6 +327,7 @@ int main() {
 	//SelectSort(buf, len);
 	HeapSort(buf1, len1);
 	MergeSort(buf, 0, len - 1);
+	rxsort(arr2, 0, 7, 3, 10);
 	for (int i = 0; i < sizeof(buf)/sizeof(buf[0]); i++)
 	{
 		cout << buf[i] << " ";
@@ -307,6 +336,12 @@ int main() {
 	for (int j = 0; j < len1; j++)
 	{
 		cout << buf1[j] << " ";
+	}
+	cout << endl;
+
+	for (int j = 0; j < len2; j++)
+	{
+		cout << arr2[j] << " ";
 	}
 	cout << endl;
 	return 0;
