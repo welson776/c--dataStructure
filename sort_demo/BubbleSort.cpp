@@ -258,6 +258,31 @@ void rxsort(int *arr, int low, int high, int d, int k) {
 	}
 
 	int size = high - low + 1;
+	int* counts = new int[k]; //用于基数排序的辅助数据，详见基数排序
+	int* temp = new int[size];  //用于存储重新排序的数组
+	int index, pval = 1;
+	//依次处理不同的位
+	for (int i = 0; i < d; i++)
+	{
+		//counts数组清零
+		for (int j = 0; j < k; j++)
+		{
+			counts[j] = 0;
+		}
+		for (int j = low; j <= high; j++)
+		{
+			/*
+            1.data[j]/pval：去掉数字data[j]的后i个数，例如：
+            当data[j]=1234,i=2时，此时pval=100,data[j]/pval=12;
+            2.(data[j]/pval)%k：取数字data[j]/pval的最后一位数
+            3.(int)(data[j]/pval)%k:取数字data[j]的第i位数
+            */
+			index = (int)(arr[j] / pval) % k;
+			/*
+			统计数组A中每个数字的第i位数中各个数字的频数,用于计数排序；
+			*/
+		}
+	}
 }
 
 int main() {
